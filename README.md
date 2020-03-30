@@ -12,7 +12,7 @@ Parse User CLI
 
 Example:
 ```bash
-docker run -rm \
+docker run --rm \
 -e SERVER_URL=http://localhost:1337/api \
 -e APPLICATION_ID=1234567890 \
 -e JAVASCRIPT_KEY=0987654321 \
@@ -24,15 +24,15 @@ list
 ## Usage
 1. Add user
 ```
-docker run -rm atton16/parse-user-cli add <username> <password>
+docker run --rm atton16/parse-user-cli add <username> <password>
 ```
 2. Set password
 ```
-docker run -rm atton16/parse-user-cli set-password <username> <password>
+docker run --rm atton16/parse-user-cli set-password <username> <password>
 ```
 3. List user
 ```
-docker run -rm atton16/parse-user-cli list
+docker run --rm atton16/parse-user-cli list
 ```
 
 # License
