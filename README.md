@@ -26,11 +26,15 @@ list
 ```
 docker run -rm atton16/parse-user-cli add <username> <password>
 ```
-2. Set password
+2. Remove user
+```
+docker run -rm atton16/parse-user-cli remove <username>
+```
+3. Set password
 ```
 docker run -rm atton16/parse-user-cli set-password <username> <password>
 ```
-3. List user
+4. List user
 ```
 docker run -rm atton16/parse-user-cli list
 ```

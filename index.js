@@ -3,6 +3,7 @@ const Parse = require('./parse');
 function printUsageAll() {
   printUsage();
   printUsageAdd();
+  printUsageRemove();
   printUsageSetPassword();
   printUsageListUser();
 }
@@ -13,6 +14,10 @@ function printUsage() {
 
 function printUsageAdd() {
   console.log('parse-user add <username> <password>');
+}
+
+function printUsageRemove() {
+  console.log('parse-user remove <username>');
 }
 
 function printUsageSetPassword() {
@@ -42,6 +47,23 @@ async function addUser(username, password) {
   console.log(`User with username "${username}" created.`);
 }
 
+async function removeUser(username) {
+  const q = new Parse.Query(Parse.User);
+  q.equalTo('username', username);
+  const user = await q.first({useMasterKey: true});
+  if (username.length < 4) {
+    console.log('Username must be atleast 4 characters long!');
+    return;
+  }
+  if (!user) {
+    console.log('User not found!');
+    return;
+  }
+  await user.destroy({useMasterKey: true});
+  console.log(`User with username "${username}" removed.`);
+
+}
+
 async function setPassword(username, password) {
   const q = new Parse.Query(Parse.User);
   q.equalTo('username', username);
@@ -62,7 +84,7 @@ async function setPassword(username, password) {
 async function listUser() {
   const q = new Parse.Query(Parse.User);
   const users = await q.find({useMasterKey: true});
-  console.log(users);
+  console.log(users.map(u => u.get('username')));
 }
 
 if (process.argv.length < 3) {
@@ -79,6 +101,13 @@ if (cmd.match(/add/gi)) {
     process.exit(1);
   }
   addUser(process.argv[3], process.argv[4]);
+} else if (cmd.match(/remove/gi)) {
+  if (process.argv.length < 4) {
+    printUsage();
+    printUsageRemove();
+    process.exit(1);
+  }
+  removeUser(process.argv[3]);
 } else if (cmd.match(/set-password/gi)) {
   if (process.argv.length < 5) {
     printUsage();
