@@ -28,7 +28,7 @@ docker run --rm atton16/parse-user-cli add <username> <password>
 ```
 2. Remove user
 ```
-docker run -rm atton16/parse-user-cli remove <username>
+docker run --rm atton16/parse-user-cli remove <username>
 ```
 3. Set password
 ```
